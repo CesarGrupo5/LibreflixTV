@@ -6,7 +6,8 @@ public class Serie extends Obra {
     public int qntEpisodios;
     public Episodio[] episodios;
 
-    public Serie(int id, String titulo, String descricacao, LocalDate dataLancamento, String diretor, boolean isPopular, boolean isDestaque, boolean isNovo, Generos[] generos, Episodio[] episodios) {
+    public Serie(int id, String titulo, String descricacao, LocalDate dataLancamento, String diretor,
+                 boolean isPopular, boolean isDestaque, boolean isNovo, Generos[] generos, Episodio[] episodios) {
         super(id, titulo, descricacao, dataLancamento, diretor, isPopular, isDestaque, isNovo, generos);
         this.episodios = episodios;
         this.qntEpisodios = episodios.length;

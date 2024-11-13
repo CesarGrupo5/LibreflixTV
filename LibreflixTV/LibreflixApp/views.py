@@ -5,6 +5,9 @@ from LibreflixApp.models import Obra, ContinuarAssistindo, Favoritados, Filme, S
 
 class HomeView(View):
     def get(self, request):
+        if(request.user.is_authenticated == False):
+            return redirect('page')
+
         destaques = Obra.objects.filter(isDestaque=True).all()
         longas = Obra.objects.filter(isPopular=True).all()
         recentes = Obra.objects.filter(isRecente=True).all()

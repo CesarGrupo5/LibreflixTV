@@ -1,0 +1,22 @@
+h1, h2, h3, h4, h5, h6, p {
+    font-family: andale-mono, monospace; 
+    color: white;
+}
+
+.obra {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.obra:hover {
+    transform: translateY(-5px); /* Eleva o card ao passar o mouse */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra ao card */
+}
+
+.scroll-container {
+    -ms-overflow-style: none;  /* Para o IE */
+    scrollbar-width: none;     /* Para o Firefox */
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;  /* Oculta a barra de rolagem no Chrome/Safari */
+}

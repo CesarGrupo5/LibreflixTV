@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Obra(models.Model):
     titulo = models.CharField(max_length=20)
     descricao = models.TextField()
+    genero = models.CharField(max_length=20)
     imagem = models.URLField()
     dataLancamento = models.DateField
     diretor = models.CharField(max_length=20)

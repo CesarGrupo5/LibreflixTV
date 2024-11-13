@@ -1,0 +1,22 @@
+<button class="btn text-white" style="scale: 150%; margin-left: 5px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
+    ☰
+</button>
+
+<h2 class="position-absolute top-0 end-0 p-3" style="font-family: andale-mono, monospace; color: white;">LIBREFLIX</h2>
+  
+<div class="offcanvas offcanvas-start text-white" style="background-color: #7DC7DA;" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="list-unstyled">
+            <li><p class="text-black d-block p-2">{{ request.user.username }}</p></li>
+            <li><a href="#" class="text-black d-block p-2 text-decoration-none">Pesquisar</a></li>
+            <br>
+            <li><a href="{% url 'home' %}" class="text-black d-block p-2 text-decoration-none">Início</a></li>
+            <li><a href="#" class="text-black d-block p-2 text-decoration-none">Catálogo</a></li>
+            <li><a href="{% url 'favoritos' %}" class="text-black d-block p-2 text-decoration-none">Favoritos</a></li>
+            <li><a href="#" class="text-black d-block p-2 text-decoration-none">Configurações</a></li>
+        </ul>
+    </div>
+</div>

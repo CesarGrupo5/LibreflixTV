@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos</title>
+    <link rel="stylesheet" href="{% static 'css/universal.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body style="background-color: #14181C;">
+    {% include 'common/sidebarMenu.html' %}
+
+    <div class="container full-height-container" style="margin-top: 10vh;">     
+        <h2 class="text-white">Obras Favoritas</h2>
+        <div class="container mb-5 ">
+            <div class="row">
+                <!-- Cada card será um filme/série -->
+                {% for favorito in favoritos %}
+                <div style="width: 300px">
+                    <div class="card card-body bg-transparent border-0" style="width: 300px; margin: 5px; ">
+                        <a href="{% url 'obra_info' id=favorito.id %}"><img src="{{ favorito.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 200px; object-fit: cover;" onclick="" alt="..."></a>
+                    </div>
+                </div>
+
+                {% endfor %}
+                
+            </div>
+        </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -39,6 +39,14 @@
                 {% if obra is Serie %}
                     <p><strong>Quantidade de Episódios:</strong> {{ obra.qntEpisodios }}</p>
                 {% endif %}
+
+                <form action="{% url 'obra_info' id=obra.id %}" method="POST"> {% csrf_token %}
+                    {% if isFavorito == False %}
+                        <button class="mt-3 btn bg-black text-white" name="starFavoritar" value="{{obra.id}}">+</button>
+                    {% else %}
+                        <button class="mt-3 btn bg-black text-white" name="starRemover" value="{{obra.id}}">✓</button>
+                    {% endif %}
+                </form>
             </div>
         </div>
 

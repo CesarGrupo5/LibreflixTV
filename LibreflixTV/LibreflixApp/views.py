@@ -34,9 +34,41 @@ class ObraView(View):
         # Verifica se é um filme ou uma serie
         if(Filme.objects.filter(id=id).exists()):
             obra = Filme.objects.get(id=id)
-            return render(request, 'obraFilme.html', {'obra': obra})
+            isFavorito = ObraView.buscarFavorito(request.user, obra)
+
+            return render(request, 'obraFilme.html', {'obra': obra, 'isFavorito': isFavorito})
 
         elif(Serie.objects.filter(id=id).exists()):
             obra = Serie.objects.get(id=id)
             episodios = Episodio.objects.filter(obra=obra).all()
-            return render(request, 'obraSerie.html', {'obra': obra, 'episodios': episodios})
+            isFavorito = ObraView.buscarFavorito(request.user, obra)
+
+            return render(request, 'obraSerie.html', {'obra': obra, 'episodios': episodios, 'isFavorito': isFavorito})
+        
+    def post(self, request, id):
+        if(request.POST.get('starFavoritar')):
+            ObraView.favoritar(request, id)
+            return redirect('obra_info', id)
+        
+        if(request.POST.get('starRemover')):
+            ObraView.removerFavorito(request, id)
+            return redirect('obra_info', id)
+
+    def favoritar(request, id):
+        f = Favoritados()
+        f.usuario = request.user
+        f.obra = Obra.objects.filter(id=id).first()
+
+        if(ObraView.buscarFavorito(request.user, f.obra) == False):
+            f.save()
+
+    def removerFavorito(request, id):
+        if(ObraView.buscarFavorito(request.user, Obra.objects.filter(id=id).first()) == True):
+            f = Favoritados.objects.filter(usuario=request.user, obra=Obra.objects.filter(id=id).first()).first()
+            f.delete()
+    
+    def buscarFavorito(user, obra):
+        if(Favoritados.objects.filter(usuario=user, obra=obra).exists()):
+            return True
+        else:
+            return False

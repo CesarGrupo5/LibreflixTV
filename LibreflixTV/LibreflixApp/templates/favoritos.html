@@ -13,17 +13,16 @@
     {% include 'common/sidebarMenu.html' %}
 
     <div class="container full-height-container" style="margin-top: 10vh;">     
-        <h2 class="text-white">Obras Favoritas</h2>
+        <h2 class="text-white">Obras Salvas</h2>
         <div class="container mb-5 ">
             <div class="row">
                 <!-- Cada card será um filme/série -->
                 {% for favorito in favoritos %}
                 <div style="width: 300px">
                     <div class="card card-body bg-transparent border-0" style="width: 300px; margin: 5px; ">
-                        <a href="{% url 'obra_info' id=favorito.id %}"><img src="{{ favorito.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 200px; object-fit: cover;" onclick="" alt="..."></a>
+                        <a href="{% url 'obra_info' id=favorito.obra.id %}"><img src="{{ favorito.obra.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 200px; object-fit: cover;" onclick="" alt="..."></a>
                     </div>
                 </div>
-
                 {% endfor %}
                 
             </div>

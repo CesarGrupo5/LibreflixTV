@@ -7,7 +7,6 @@ class Obra(models.Model):
     titulo = models.CharField(max_length=20)
     descricao = models.TextField()
     imagem = models.URLField()
-    generos = []
     dataLancamento = models.DateField
     diretor = models.CharField(max_length=20)
     isDestaque = models.BooleanField()

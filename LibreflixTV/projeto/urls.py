@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path
 
-from LibreflixApp.views import HomeView
+from LibreflixApp.views import HomeView, LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
+    path('home/', HomeView.as_view(), name='home'),
+    path('', LoginView.as_view(), name='login'),
 ]

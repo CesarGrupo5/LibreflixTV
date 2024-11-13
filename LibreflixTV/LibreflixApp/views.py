@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from LibreflixApp.models import Obra, ContinuarAssistindo
@@ -13,4 +13,13 @@ class HomeView(View):
         context = { 'destaques': destaques, 'longas': longas, 'recentes': recentes, 'continuar': continuar }
 
         return render(request, 'home.html', context)
+    
+class LoginView(View):
+    def get(self, request):
+
+        # se já estiver autenticado, redirecionar para home
+        if(request.user.is_authenticated):
+            return redirect('home')
+
+        return render(request, 'login.html')
     

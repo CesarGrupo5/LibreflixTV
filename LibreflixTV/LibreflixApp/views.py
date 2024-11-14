@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout as lg
 from django.views import View
 
 from LibreflixApp.models import Obra, ContinuarAssistindo, Favoritados, Filme, Serie, Episodio
@@ -12,9 +13,8 @@ class HomeView(View):
         longas = Obra.objects.filter(isPopular=True).all()
         recentes = Obra.objects.filter(isRecente=True).all()
         continuar = ContinuarAssistindo.objects.filter(usuario=request.user).all()
-
+        
         context = { 'destaques': destaques, 'longas': longas, 'recentes': recentes, 'continuar': continuar }
-
         return render(request, 'home.html', context)
     
 class PageView(View):
@@ -39,14 +39,16 @@ class ObraView(View):
             obra = Filme.objects.get(id=id)
             isFavorito = ObraView.buscarFavorito(request.user, obra)
 
-            return render(request, 'obraFilme.html', {'obra': obra, 'isFavorito': isFavorito})
+            context = {'obra': obra, 'isFavorito': isFavorito}
+            return render(request, 'obraFilme.html', context)
 
         elif(Serie.objects.filter(id=id).exists()):
             obra = Serie.objects.get(id=id)
             episodios = Episodio.objects.filter(obra=obra).all()
             isFavorito = ObraView.buscarFavorito(request.user, obra)
 
-            return render(request, 'obraSerie.html', {'obra': obra, 'episodios': episodios, 'isFavorito': isFavorito})
+            context = {'obra': obra, 'episodios': episodios, 'isFavorito': isFavorito}
+            return render(request, 'obraSerie.html', context)
         
     def post(self, request, id):
         if(request.POST.get('starFavoritar')):
@@ -75,3 +77,19 @@ class ObraView(View):
             return True
         else:
             return False
+
+class CatalogoView(View):   
+    def get(self, request):
+        return render(request, 'catalogo.html')
+
+class GeneroView(View):
+    def get(self, request, genero):
+        obras = Obra.objects.filter(genero=genero).all()
+
+        context = {'obras': obras, 'genero': genero}
+        return render(request, 'genero.html', context)
+    
+class SairView(View):
+    def get(self, request):
+        lg(request)
+        return redirect('page')

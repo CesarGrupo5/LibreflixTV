@@ -1,0 +1,23 @@
+.nav-button {
+    background-color: #7DC7DA; /* Cor cinza similar à da imagem */
+    border: none;
+    border-radius: 10px;
+    height: 50vh; /* Altura dos botões */
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10vh;
+    transition: background-color 0.3s;
+}
+
+.d-flex:hover .nav-button {
+    filter: blur(3px);
+}
+
+
+.nav-button:hover {
+    background-color: #9df7fc; /* Cor azul similar à da imagem */
+    filter: none !important;
+}

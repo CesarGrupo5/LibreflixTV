@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo</title>
+    <link rel="stylesheet" href="{% static 'css/universal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/catalogo.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body style="background-color: #14181C;">
+    {% include 'common/sidebarMenu.html' %}
+
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'genero_info' genero='Docs' %}" class="nav-button flex-fill mx-1 text-reset text-decoration-none">Docs</a>
+        <a href="{% url 'genero_info' genero='Ficção' %}" class="nav-button flex-fill mx-1 text-reset text-decoration-none">Ficção</a>
+        <a href="{% url 'genero_info' genero='Curtas' %}" class="nav-button flex-fill mx-1 text-reset text-decoration-none">Curtas</a>
+        <a href="{% url 'genero_info' genero='Séries' %}" class="nav-button flex-fill mx-1 text-reset text-decoration-none">Séries</a>
+        <a href="{% url 'genero_info' genero='Clássicos' %}" class="nav-button flex-fill mx-1 text-reset text-decoration-none">Clássicos</a>
+        <a href="{% url 'genero_info' genero='Nacionais' %}" class="nav-button flex-fill mx-1 text-reset text-decoration-none">Nacionais</a>
+        <a href="{% url 'genero_info' genero='Kids' %}" class="nav-button flex-fill mx-1 text-reset text-decoration-none">Kids</a>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

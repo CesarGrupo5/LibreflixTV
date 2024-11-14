@@ -20,16 +20,9 @@
                     <!-- cada card vai ser um filme/serie-->
 
                     {% for destaque in destaques %}
-                    <div class="card card-body bg-transparent border-0" style="width: 300px; margin: 5px; ">
-                        <a href="{% url 'obra_info' id=destaque.id %}">
-                            <div class="image-container" style="position: relative; width: 100%; height: 200px;">
-                                <img src="{{ destaque.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
-                                <div class="overlay rounded-4">
-                                    <h4 class="film-title">{{ destaque.titulo }}</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            {% with obra=destaque %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
                     {% endfor %}
         
                 </div>
@@ -41,16 +34,9 @@
                 <div class="row flex-nowrap">
                     <!-- cada card vai ser um filme/serie-->
                     {% for c in continuar %}
-                        <div class="card card-body bg-transparent border-0" style="width: 300px; margin: 5px; ">
-                            <a href="{% url 'obra_info' id=c.obra.id %}">
-                                <div class="image-container" style="position: relative; width: 100%; height: 200px;">
-                                    <img src="{{ c.obra.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
-                                    <div class="overlay rounded-4">
-                                        <h4 class="film-title">{{ c.obra.titulo }}</h4>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                            {% with obra=c.obra %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
                     {% endfor %}
                 </div>
             </div>
@@ -61,16 +47,9 @@
                 <div class="row flex-nowrap">
                     <!-- cada card vai ser um filme/serie-->
                     {% for recente in recentes %}
-                        <div class="card card-body bg-transparent border-0" style="width: 300px; margin: 5px; ">
-                            <a href="{% url 'obra_info' id=recente.id %}">
-                                <div class="image-container" style="position: relative; width: 100%; height: 200px;">
-                                    <img src="{{ recente.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
-                                    <div class="overlay rounded-4">
-                                        <h4 class="film-title">{{ recente.titulo }}</h4>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                            {% with obra=recente %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
                     {% endfor %}
                 </div>
             </div>
@@ -80,16 +59,9 @@
                 <div class="row flex-nowrap">
                     <!-- cada card vai ser um filme/serie-->
                     {% for longa in longas %}
-                    <div class="card card-body bg-transparent border-0" style="width: 300px; margin: 5px; ">
-                        <a href="{% url 'obra_info' id=longa.id %}">
-                            <div class="image-container" style="position: relative; width: 100%; height: 200px;">
-                                <img src="{{ longa.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
-                                <div class="overlay rounded-4">
-                                    <h4 class="film-title">{{ longa.titulo }}</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            {% with obra=longa %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
                     {% endfor %}
                 </div>
             </div>

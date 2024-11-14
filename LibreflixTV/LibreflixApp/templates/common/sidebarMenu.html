@@ -10,13 +10,22 @@
     </div>
     <div class="offcanvas-body">
         <ul class="list-unstyled">
-            <li><p class="text-black d-block p-2">{{ request.user.username }}</p></li>
-            <li><a href="#" class="text-black d-block p-2 text-decoration-none">Pesquisar</a></li>
+            <li><p class=" text-black d-block p-2">{{ request.user.username }}</p></li>
+            <li><a href="#" class="sidebarli text-black d-block p-2 text-decoration-none">Pesquisar</a></li>
             <br>
-            <li><a href="{% url 'home' %}" class="text-black d-block p-2 text-decoration-none">Início</a></li>
-            <li><a href="{% url 'generos' %}" class="text-black d-block p-2 text-decoration-none">Catálogo</a></li>
-            <li><a href="{% url 'favoritos' %}" class="text-black d-block p-2 text-decoration-none">Salvos</a></li>
-            <li><a href="{% url 'sair' %}" class="text-black d-block p-2 text-decoration-none">Sair</a></li>
+            <li><a href="{% url 'home' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Início</a></li>
+            <li><a href="{% url 'generos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Catálogo</a></li>
+            <li><a href="{% url 'favoritos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Salvos</a></li>
+            <li><a href="{% url 'sair' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Sair</a></li>
         </ul>
     </div>
 </div>
+
+<style>
+    .sidebarli {
+        transition: background-color 0.3s; /* Adiciona uma transição suave */
+    }
+    .sidebarli:hover {
+        background-color: #B0E2F3; /* Substitua por qualquer cor clara */
+    }
+</style>

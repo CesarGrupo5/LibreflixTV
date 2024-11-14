@@ -8,7 +8,7 @@ class Obra(models.Model):
     descricao = models.TextField()
     genero = models.CharField(max_length=20)
     imagem = models.URLField()
-    dataLancamento = models.DateField
+    dataLancamento = models.DateField()
     diretor = models.CharField(max_length=20)
     isDestaque = models.BooleanField()
     isPopular = models.BooleanField()
@@ -21,6 +21,8 @@ class Serie(Obra):
     qntEpisodios = models.IntegerField()
 
 class Episodio(models.Model):
+    titulo = models.CharField(max_length=20)
+    descricao = models.TextField()
     imagem = models.URLField()
     duracao = models.IntegerField()
     obra = models.ForeignKey(Serie, on_delete=models.CASCADE)

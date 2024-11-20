@@ -101,7 +101,7 @@ class PesquisaView(View):
             obras = []
 
             for obra in todasObras:
-                if obra.titulo.startswith(titulo):
+                if obra.titulo.lower().startswith(titulo.lower()):
                     obras.append(obra)
         else:
             obras = None

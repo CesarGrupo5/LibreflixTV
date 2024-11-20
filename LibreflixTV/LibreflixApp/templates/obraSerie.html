@@ -18,7 +18,8 @@
             <div class="col-md-4">
                 <img src="{{ obra.imagem }}" class="img-fluid rounded-4" alt="{{ obra.titulo }}">
             </div>
-            <div class="col-md-8">
+
+            <div class="col-md-4">
                 <h1 class="text-white">{{ obra.titulo }}</h1>
                 <p><strong>Gênero:</strong> {{ obra.genero }}</p>
                 <p><strong>Diretor:</strong> {{ obra.diretor }}</p>
@@ -49,19 +50,19 @@
                     {% endif %}
                 </form>
             </div>
-        </div>
-
-        <div class="mt-2">
-            <h5 class="text-white">Trailer</h5>
-        {% load youtube_filters %}
-            <iframe 
-                width="426" 
-                height="240" 
-                src="{{ obra.trailer|youtube_embed }}" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+            
+            <div class="col-md-4">
+                <h5 class="text-white">Trailer</h5>
+            {% load youtube_filters %}
+                <iframe 
+                    width="426" 
+                    height="240" 
+                    src="{{ obra.trailer|youtube_embed }}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
 
         <hr class="my-5" style="color: white;">

@@ -4,12 +4,13 @@ from django.contrib.auth.models import User
 # ENTIDADES
 
 class Obra(models.Model):
-    titulo = models.CharField(max_length=20)
+    titulo = models.CharField(max_length=50)
     descricao = models.TextField()
     genero = models.CharField(max_length=20)
     imagem = models.URLField()
     dataLancamento = models.DateField()
     diretor = models.CharField(max_length=20)
+    trailer = models.URLField()
     isDestaque = models.BooleanField()
     isPopular = models.BooleanField()
     isRecente = models.BooleanField()

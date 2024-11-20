@@ -93,3 +93,22 @@ class SairView(View):
     def get(self, request):
         lg(request)
         return redirect('page')
+
+class PesquisaView(View):
+    def get(self, request, titulo = None):
+        if titulo is not None:
+            todasObras = Obra.objects.all()
+            obras = []
+
+            for obra in todasObras:
+                if obra.titulo.startswith(titulo):
+                    obras.append(obra)
+        else:
+            obras = None
+        context = {'obras': obras}
+        return render(request, "pesquisa.html", context)
+    
+    def post(self, request):
+        titulo = request.POST.get('titulo')
+        return redirect('pesquisa', titulo)
+    

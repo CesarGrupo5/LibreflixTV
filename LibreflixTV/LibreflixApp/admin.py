@@ -2,7 +2,7 @@ from django.contrib import admin
 from LibreflixApp.models import Obra, Filme, Serie, Episodio, Favoritados, ContinuarAssistindo
 
 class ObraAdmin(admin.ModelAdmin):
-    list_display = ('titulo','genero','dataLancamento', 'diretor', 'isPopular', 'isRecente', 'isDestaque')
+    list_display = ('titulo','genero','dataLancamento', 'diretor', 'trailer', 'isPopular', 'isRecente', 'isDestaque')
     actions = ['make_popular', 'make_recente', 'make_destaque', 'make_nao_popular', 'make_nao_recente', 'make_nao_destaque']
 
     def make_popular(self, request, queryset):

@@ -1,0 +1,71 @@
+/* static/css/registration.css */
+body {
+    background: linear-gradient(to bottom right, #14181C, #2C2F33);
+    color: white;
+    font-family: 'andale-mono', monospace;
+    overflow: hidden;
+}
+
+.registration-box {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 15px;
+    animation: fadeIn 1s ease-in-out;
+    width: 50%;
+}
+
+h2 {
+    color: #7289DA;
+    animation: slideDown 1s ease-in-out;
+}
+
+.form-control {
+    background-color: #2C2F33;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    background-color: #2C2F33;
+    color: white;
+    border: 1px solid #7289DA;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: #7289DA;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #5b6eae;
+}
+
+.alert-danger {
+    background-color: #ff4f4f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+a {
+    color: #7289DA;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

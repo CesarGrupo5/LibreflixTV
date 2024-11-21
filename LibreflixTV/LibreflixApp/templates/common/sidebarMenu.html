@@ -10,13 +10,16 @@
     </div>
     <div class="offcanvas-body">
         <ul class="list-unstyled">
-            <li><p class=" text-black d-block p-2">{{ request.user.username }}</p></li>
-            <li><a href="{% url 'pesquisa_vazia' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Pesquisar</a></li>
-            <br>
-            <li><a href="{% url 'home' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Início</a></li>
-            <li><a href="{% url 'generos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Catálogo</a></li>
-            <li><a href="{% url 'favoritos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Salvos</a></li>
-            <li><a href="{% url 'sair' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Sair</a></li>
+            {% if request.user.is_authenticated %}
+                <li><p class=" text-black d-block p-2">{{ request.user.username }}</p></li>
+                <li><a href="{% url 'home' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Início</a></li>
+                <li><a href="{% url 'generos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Catálogo</a></li>
+                <li><a href="{% url 'favoritos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Salvos</a></li>
+                <li><a href="{% url 'sair' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Sair</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Login</a></li>
+                <li><a href="{% url 'register' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Registrar</a></li>
+            {% endif %}
         </ul>
     </div>
 </div>

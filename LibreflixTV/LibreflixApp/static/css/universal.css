@@ -62,3 +62,19 @@ h1, h2, h3, h4, h5, h6, p {
 .scroll-container::-webkit-scrollbar {
     display: none;  /* Oculta a barra de rolagem no Chrome/Safari */
 }
+
+.estrela {
+    font-size: 30px;
+    cursor: pointer;
+    color: gold;
+}
+
+.estrelas span {
+    font-size: 1.5rem;
+    color: #ccc;
+}
+
+.estrelas span:hover,
+.estrelas span.selected {
+    color: #FFD700;
+}

@@ -3,9 +3,9 @@ from django.contrib.auth import logout as lg
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
+from django.db.models import Avg
 
-
-from LibreflixApp.models import Obra, ContinuarAssistindo, Favoritados, Filme, Serie, Episodio
+from LibreflixApp.models import Obra, ContinuarAssistindo, Favoritados, Filme, Serie, Episodio,Avaliacao
 
 class RegistrationView(View):
     def get(self, request):
@@ -62,31 +62,73 @@ class FavoritosView(View):
     
 class ObraView(View):
     def get(self, request, id):
-
-        # Verifica se é um filme ou uma serie
-        if(Filme.objects.filter(id=id).exists()):
+        if Filme.objects.filter(id=id).exists():
             obra = Filme.objects.get(id=id)
             isFavorito = ObraView.buscarFavorito(request.user, obra)
+            avaliacao_usuario = Avaliacao.objects.filter(obra=obra, usuario=request.user).first()
+            nota_usuario = avaliacao_usuario.estrelas if avaliacao_usuario else 0
+            media_avaliacoes = Avaliacao.objects.filter(obra=obra).aggregate(Avg('estrelas'))['estrelas__avg']
+            media_avaliacoes = round(media_avaliacoes, 1) if media_avaliacoes else "Sem avaliações"
 
-            context = {'obra': obra, 'isFavorito': isFavorito}
+            context = {
+                'obra': obra,
+                'isFavorito': isFavorito,
+                'avaliacao_usuario': avaliacao_usuario.estrelas if avaliacao_usuario else None,
+                'nota_usuario': nota_usuario,
+                'media_avaliacoes': media_avaliacoes,
+            }
             return render(request, 'obraFilme.html', context)
 
-        elif(Serie.objects.filter(id=id).exists()):
+        elif Serie.objects.filter(id=id).exists():
             obra = Serie.objects.get(id=id)
             episodios = Episodio.objects.filter(obra=obra).all()
             isFavorito = ObraView.buscarFavorito(request.user, obra)
+            avaliacao_usuario = Avaliacao.objects.filter(obra=obra, usuario=request.user).first()
+            nota_usuario = avaliacao_usuario.estrelas if avaliacao_usuario else 0
+            media_avaliacoes = Avaliacao.objects.filter(obra=obra).aggregate(Avg('estrelas'))['estrelas__avg']
+            media_avaliacoes = round(media_avaliacoes, 1) if media_avaliacoes else "0.0"
 
-            context = {'obra': obra, 'episodios': episodios, 'isFavorito': isFavorito}
+
+            context = {
+                'obra': obra,
+                'episodios': episodios,
+                'isFavorito': isFavorito,
+                'avaliacao_usuario': avaliacao_usuario.estrelas if avaliacao_usuario else None,
+                'nota_usuario': nota_usuario,
+                'media_avaliacoes': media_avaliacoes,
+            }
             return render(request, 'obraSerie.html', context)
-        
+
     def post(self, request, id):
-        if(request.POST.get('starFavoritar')):
+        if request.POST.get('starFavoritar'):
             ObraView.favoritar(request, id)
             return redirect('obra_info', id)
-        
-        if(request.POST.get('starRemover')):
+
+        if request.POST.get('starRemover'):
             ObraView.removerFavorito(request, id)
             return redirect('obra_info', id)
+
+        obra = None
+        if Filme.objects.filter(id=id).exists():
+            obra = Filme.objects.get(id=id)
+        elif Serie.objects.filter(id=id).exists():
+            obra = Serie.objects.get(id=id)
+
+        if obra is None:
+            return redirect('obra_info', id)
+
+        estrelas = request.POST.get('nota')
+        if estrelas and estrelas.isdigit():
+            estrelas = int(estrelas)
+            if 1 <= estrelas <= 5:  
+                Avaliacao.objects.update_or_create(
+                    obra=obra,
+                    usuario=request.user,
+                    defaults={'estrelas': estrelas},
+                )
+
+        return redirect('obra_info', id)
+
 
     def favoritar(request, id):
         f = Favoritados()

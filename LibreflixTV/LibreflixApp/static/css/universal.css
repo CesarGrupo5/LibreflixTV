@@ -69,6 +69,14 @@ h1, h2, h3, h4, h5, h6, p {
     color: gold;
 }
 
+.avaliacao p {
+    margin-bottom: 0; 
+  }
+
+  #estrelas {
+    margin-top: 5px; 
+  }
+
 .estrelas span {
     font-size: 1.5rem;
     color: #ccc;

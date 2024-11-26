@@ -35,3 +35,9 @@ class Favoritados(models.Model):
 class ContinuarAssistindo(models.Model):
     obra = models.ForeignKey(Obra, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Avaliacao(models.Model):
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE, related_name="avaliacoes")
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="avaliacoes")
+    estrelas = models.PositiveSmallIntegerField(default=0)
+    data_criacao = models.DateTimeField(auto_now_add=True)

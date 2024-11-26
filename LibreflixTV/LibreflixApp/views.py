@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.contrib.auth import logout as lg
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -141,3 +142,16 @@ class PesquisaView(View):
         titulo = request.POST.get('titulo')
         return redirect('pesquisa', titulo)
     
+class IatesteView(View):
+    def get(self, request):
+        """
+        Renderiza a página iateste.html.
+        """
+        return render(request, 'iateste.html')
+
+    def post(self, request):
+
+        filme = request.POST.get('filme', '').strip()
+        if filme:
+            return JsonResponse({'filme': filme})
+        return JsonResponse({'erro': 'Por favor, digite o nome de um filme.'})

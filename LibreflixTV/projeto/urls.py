@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from LibreflixApp.views import HomeView, PageView, FavoritosView, ObraView, CatalogoView, GeneroView, SairView, PesquisaView, LoginView, RegistrationView
+from LibreflixApp.views import HomeView, PageView, FavoritosView, ObraView, CatalogoView, GeneroView, SairView, PesquisaView, LoginView, RegistrationView, IatesteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,4 +16,7 @@ urlpatterns = [
     path('pesquisa/', PesquisaView.as_view(), name='pesquisa_vazia'),
     path('login/', LoginView.as_view(), name='login'),
     path('register/', RegistrationView.as_view(), name='register'),
+    path('iateste/', IatesteView.as_view(), name='iateste'), 
+
+
 ]

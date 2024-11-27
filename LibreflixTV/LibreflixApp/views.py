@@ -42,8 +42,9 @@ class HomeView(View):
         longas = Obra.objects.filter(isPopular=True).all()
         recentes = Obra.objects.filter(isRecente=True).all()
         continuar = ContinuarAssistindo.objects.filter(usuario=request.user).all()
+        destacado = Obra.objects.filter(isDestaque=True).first()
         
-        context = { 'destaques': destaques, 'longas': longas, 'recentes': recentes, 'continuar': continuar }
+        context = { 'destaques': destaques, 'longas': longas, 'recentes': recentes, 'continuar': continuar, 'destacado': destacado }
         return render(request, 'home.html', context)
     
 class PageView(View):

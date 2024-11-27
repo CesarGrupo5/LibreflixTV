@@ -1,12 +1,12 @@
 {% block card %}
-<div class="card card-body bg-transparent border-0" style="width: 300px; margin: 5px;">
-    <a href="{% url 'obra_info' id=obra.id %}">
-        <div class="col-4 image-container" style="position: relative; width: 100%; height: 200px;">
-            <img src="{{ obra.imagem }}" class="obra card-img-top rounded-4" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
-            <div class="overlay rounded-4">
-                <h4 class="film-title">{{ obra.titulo }}</h4>
-            </div>
+
+<div class="card card-body bg-transparent border-0" style="width: 220px; margin: 5px; cursor: pointer;">
+        <div class="col-12 image-container" style="position: relative; width: 100%; height: 120px;" data-bs-toggle="modal" data-bs-target="#{{ obra.id }}">
+            <img src="{{ obra.imagem }}" class="obra card-img-top rounded" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
         </div>
-    </a>
 </div>
+
+
+{% include 'common/popup.html' %}
+
 {% endblock %}

@@ -1,13 +1,23 @@
-<button class="btn text-white" style="scale: 150%; margin-left: 5px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
-    ☰
+{% load static %}
+
+<button class="btn text-white mt-4" 
+        style="scale: 150%; margin-left: 20px; position: relative; z-index: 1050;" 
+        type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
+    <img src="{% static 'fotos/icons/menu.png' %}" alt="Menu" style="width: 30px; height: 30px;">
 </button>
 
-<h2 class="position-absolute top-0 end-0 p-3" style="font-family: andale-mono, monospace; color: white;">LIBREFLIX</h2>
-  
-<div class="offcanvas offcanvas-start text-white" style="background-color: #7DC7DA;" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+<h2 class="position-absolute top-0 end-0 p-3" style="font-family: andale-mono, monospace; color: white; z-index: 1055;">
+    LIBREFLIX
+</h2>
+
+<div class="offcanvas offcanvas-start text-white position-absolute" 
+    style="background-color: #7DC7DA; z-index: 1060;" 
+    tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+
     <div class="offcanvas-header">
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
     </div>
+
     <div class="offcanvas-body">
         <ul class="list-unstyled">
             {% if request.user.is_authenticated %}
@@ -26,9 +36,9 @@
 
 <style>
     .sidebarli {
-        transition: background-color 0.3s; /* Adiciona uma transição suave */
+        transition: background-color 0.3s; 
     }
     .sidebarli:hover {
-        background-color: #B0E2F3; /* Substitua por qualquer cor clara */
+        background-color: #B0E2F3;
     }
 </style>

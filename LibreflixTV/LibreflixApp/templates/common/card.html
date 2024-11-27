@@ -1,11 +1,10 @@
 {% block card %}
 
 <div class="card card-body bg-transparent border-0" style="width: 220px; margin: 5px; cursor: pointer;">
-        <div class="col-12 image-container" style="position: relative; width: 100%; height: 120px;" data-bs-toggle="modal" data-bs-target="#{{ obra.id }}">
+        <div class="col-12 image-container" style="position: relative; width: 100%; height: 120px;" onclick="popup('{{ obra.id }}')">
             <img src="{{ obra.imagem }}" class="obra card-img-top rounded" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
         </div>
 </div>
-
 
 {% include 'common/popup.html' %}
 

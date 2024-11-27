@@ -1,18 +1,23 @@
-<div class="modal fade" id="{{ obra.id }}" tabindex="-1" aria-labelledby="filmModalLabel" aria-hidden="true" data-bs-backdrop="false">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(20, 24, 28, 1)), url('{{ obra.imagem }}') no-repeat center center; color: white; z-index: 1051;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="filmModalLabel" style="font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;">{{ obra.titulo }}</h5>
-                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>2024 - 81 min</strong> <br> Gênero: Documentário</p>
-                <p>{{ obra.descricao }}</p>
-                <div class="d-flex justify-content-start">
-                    <a href="#" class="btn btn-outline-light rounded btn-primary btn-lg me-3">ASSISTIR</a>
-                    <a href="#" class="btn btn-outline-light rounded btn-lg">INFO</a>
-                </div>
-            </div>
+
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+</head>
+
+<div class="popup" id="{{obra.id}}">
+    <img class="popup-image" style="background: url('{{obra.imagem}}');" src="{{ obra.imagem }}" alt="{{ obra.titulo }}">
+    <div class="popup-image-backdrop" id="backdrop"></div>
+    <button class="close-popup" onclick="popup('{{obra.id}}')"><img src="{% static 'fotos/icons/close.png' %}"></button>
+    <div class="popup-content">
+        <h5 class="popup-title">{{ obra.titulo }}</h5>
+        <p><strong>{{ obra.dataLancamento }}</strong> <br> {{ obra.genero }}</p> 
+        <p>{{ obra.descricao }}</p>
+        <div class="d-flex justify-content-start">
+            <a href="{% url 'obra_info' id=obra.id %}" class="btn me-3">ASSISTIR</a>
+            <a href="{% url 'obra_info' id=obra.id %}" class="btn">INFO</a>
         </div>
     </div>
 </div>
+
+<script src="{% static 'js/popup.js' %}"></script>

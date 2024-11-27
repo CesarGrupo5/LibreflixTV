@@ -12,84 +12,84 @@
     </head>
     <body style="background-color: #14181C;">
         {% include 'common/sidebarMenu.html' %}
-    
 
         <div class="container-fluid p-0 position-relative text-white" 
-        style="
-            background: 
-            linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 70%, rgba(20, 24, 28, 1) 100%), 
-            url('{{ destacado.imagem }}') no-repeat center center;
-            background-size: cover;
-            height: 100vh;
-            bottom: 8vh;
-            z-index: 1;
-        ">
+            style="
+                background: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 70%, rgba(20, 24, 28, 1) 100%), 
+                url('{{ destacado.imagem }}') no-repeat center center;
+                background-size: cover;
+                height: 100vh;
+                bottom: 8vh;
+            ">
 
-        <div class="container h-100 d-flex flex-column justify-content-center align-items-start p-5">
-            <h1 class="display-4 fw-bold mb-3">{{ destacado.titulo }}</h1>
-            <p class="lead mb-4" style="max-width: 600px;">
-                {{ destacado.descricao }}
-            </p>
-            <div>
-                <a href="{% url 'obra_info' id=destacado.id %}" class="btn btn-outline-light rounded btn-primary btn-lg me-3">ASSISTIR</a>
-                <a href="{% url 'obra_info' id=destacado.id %}" class="btn btn-outline-light rounded btn-lg">INFO</a>
+            <div class="container h-100 d-flex flex-column justify-content-center align-items-start p-5">
+                <h1 class="display-4 fw-bold mb-3">{{ destacado.titulo }}</h1>
+                <p class="lead mb-4" style="max-width: 600px;">
+                    {{ destacado.descricao }}
+                </p>
+                <div>
+                    <a href="{% url 'obra_info' id=destacado.id %}" class="btn btn-outline-light rounded btn-primary btn-lg me-3">ASSISTIR</a>
+                    <a href="{% url 'obra_info' id=destacado.id %}" class="btn btn-outline-light rounded btn-lg">INFO</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container full-height-container position-relative" style="bottom: 15vh; margin-left: 20vh; z-index: 5">     
-        <h2 class="text-white">Popular na Libreflix</h2>
-        <div class="mb-5 scroll-container d-flex overflow-auto" style="width: 180vh">
-            <div class="row flex-nowrap">
-                <!-- cada card vai ser um filme/serie-->
+        <div class="container full-height-container position-relative" style="bottom: 15vh; margin-left: 20vh">     
+            <h2 class="text-white">Popular na Libreflix</h2>
+            <div class="mb-5 scroll-container d-flex overflow-auto" style="width: 180vh">
+                <div class="row flex-nowrap">
+                    <!-- cada card vai ser um filme/serie-->
 
-                {% for destaque in destaques %}
-                        {% with obra=destaque %}
-                            {% include 'common/card.html' %}
-                        {% endwith %}
-                {% endfor %}
-    
-            </div>
-        </div>
+                    {% for destaque in destaques %}
+                            {% with obra=destaque %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
+                    {% endfor %}
         
-        {% if continuar %}
-        <h2 class="fw-light text-white">Continuar Assistindo</h2>
-        <div class="mb-5 scroll-container d-flex overflow-auto">
-            <div class="row flex-nowrap">
-                <!-- cada card vai ser um filme/serie-->
-                {% for c in continuar %}
-                        {% with obra=c.obra %}
-                            {% include 'common/card.html' %}
-                        {% endwith %}
-                {% endfor %}
+                </div>
             </div>
-        </div>
-        {% endif %}
+            
+            {% if continuar %}
+            <h2 class="fw-light text-white">Continuar Assistindo</h2>
+            <div class="mb-5 scroll-container d-flex overflow-auto">
+                <div class="row flex-nowrap">
+                    <!-- cada card vai ser um filme/serie-->
+                    {% for c in continuar %}
+                            {% with obra=c.obra %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
 
-        <h2 class="text-white">Obras Recentes</h2>
-        <div class="mb-5 scroll-container d-flex overflow-auto">
-            <div class="row flex-nowrap">
-                <!-- cada card vai ser um filme/serie-->
-                {% for recente in recentes %}
-                        {% with obra=recente %}
-                            {% include 'common/card.html' %}
-                        {% endwith %}
-                {% endfor %}
+            <h2 class="text-white">Obras Recentes</h2>
+            <div class="mb-5 scroll-container d-flex overflow-auto">
+                <div class="row flex-nowrap">
+                    <!-- cada card vai ser um filme/serie-->
+                    {% for recente in recentes %}
+                            {% with obra=recente %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <h2 class="text-white">Longas Populares</h2>
+            <div class="mb-5 scroll-container d-flex overflow-auto">
+                <div class="row flex-nowrap">
+                    <!-- cada card vai ser um filme/serie-->
+                    {% for longa in longas %}
+                            {% with obra=longa %}
+                                {% include 'common/card.html' %}
+                            {% endwith %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
-        <h2 class="text-white">Longas Populares</h2>
-        <div class="mb-5 scroll-container d-flex overflow-auto">
-            <div class="row flex-nowrap">
-                <!-- cada card vai ser um filme/serie-->
-                {% for longa in longas %}
-                        {% with obra=longa %}
-                            {% include 'common/card.html' %}
-                        {% endwith %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+        <div class="backdrop" id="backdrop"></div>
         
         <script src="{% static 'js/HorizontalScroll.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

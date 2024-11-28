@@ -5,15 +5,15 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.db.models import Avg
 
-from LibreflixApp.models import Obra, ContinuarAssistindo, Favoritados, Filme, Serie, Episodio,Avaliacao
-
+from LibreflixApp.models import Obra, ContinuarAssistindo, Favoritados, Filme, Serie, Episodio, Avaliacao
+from LibreflixApp.forms import CustomUserCreationForm, CustomAuthenticationForm  
 class RegistrationView(View):
     def get(self, request):
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
         return render(request, 'registration.html', {'form': form})
-    
+
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -22,15 +22,23 @@ class RegistrationView(View):
 
 class LoginView(View):
     def get(self, request):
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
         return render(request, 'login.html', {'form': form})
-    
+
     def post(self, request):
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')
+            email = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                user = None
+            if user is not None and user.check_password(password):
+                login(request, user)
+                return redirect('home')
+            else:
+                form.add_error(None, 'Email ou senha incorretos.')
         return render(request, 'login.html', {'form': form})
         
 class HomeView(View):

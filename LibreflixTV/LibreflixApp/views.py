@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as lg
 from django.views import View
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.db.models import Avg
@@ -192,14 +193,8 @@ class SairView(View):
 class PesquisaView(View):
     def get(self, request, titulo = None):
         if titulo is not None:
-            todasObras = Obra.objects.all()
-            obras = []
+            obras = PesquisaView.filterObras(titulo)
 
-            for obra in todasObras:
-                if obra.titulo.lower().startswith(titulo.lower()):
-                    obras.append(obra)
-        else:
-            obras = None
         context = {'obras': obras}
         return render(request, "pesquisa.html", context)
     
@@ -207,3 +202,15 @@ class PesquisaView(View):
         titulo = request.POST.get('titulo')
         return redirect('pesquisa', titulo)
     
+    def filterObras(titulo):
+        todasObras = Obra.objects.all()
+        obras = []
+
+        for obra in todasObras:
+            if obra.titulo.lower().startswith(titulo.lower()):
+                obras.append(obra)
+
+        if obras == []:
+            return None
+        else:
+            return obras

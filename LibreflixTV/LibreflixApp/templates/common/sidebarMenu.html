@@ -23,6 +23,8 @@
         <ul class="list-unstyled">
             {% if request.user.is_authenticated %}
                 <li><p class=" text-black d-block p-2">{{ request.user.username }}</p></li>
+                <li><a href="{% url 'pesquisa_vazia' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Pesquisar</a></li>
+                <br>
                 <li><a href="{% url 'home' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Início</a></li>
                 <li><a href="{% url 'generos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Catálogo</a></li>
                 <li><a href="{% url 'favoritos' %}" class="sidebarli text-black d-block p-2 text-decoration-none">Salvos</a></li>

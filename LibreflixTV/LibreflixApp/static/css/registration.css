@@ -14,7 +14,7 @@
     flex-direction: column;
     width: 50%;
     padding: 40px 20px; 
-    background-color: #45A1B9;
+    background: linear-gradient(to bottom, #45A1B9 53%, #246D80 91%);
     border-radius: 15px;
     box-sizing: border-box;
     min-height: 600px; 

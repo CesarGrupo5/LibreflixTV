@@ -24,6 +24,5 @@ function popup(id) {
             popup.style.display = 'none';
             backdrop.style.display = 'none';
         }, 500);
-
     }
 }

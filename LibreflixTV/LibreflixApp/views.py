@@ -66,10 +66,13 @@ class ObraView(View):
         if Filme.objects.filter(id=id).exists():
             obra = Filme.objects.get(id=id)
             isFavorito = ObraView.buscarFavorito(request.user, obra)
-            avaliacao_usuario = Avaliacao.objects.filter(obra=obra, usuario=request.user).first()
-            nota_usuario = avaliacao_usuario.estrelas if avaliacao_usuario else 0
-            media_avaliacoes = Avaliacao.objects.filter(obra=obra).aggregate(Avg('estrelas'))['estrelas__avg']
-            media_avaliacoes = round(media_avaliacoes, 1) if media_avaliacoes else "Sem avaliações"
+            avaliacao_usuario = ObraView.getAvaliacao(request.user, obra)
+            media_avaliacoes = ObraView.getMediaAvaliacoes(obra)
+
+            if avaliacao_usuario:
+                nota_usuario = avaliacao_usuario.estrelas
+            else :
+                nota_usuario = 0
 
             context = {
                 'obra': obra,
@@ -82,19 +85,21 @@ class ObraView(View):
 
         elif Serie.objects.filter(id=id).exists():
             obra = Serie.objects.get(id=id)
-            episodios = Episodio.objects.filter(obra=obra).all()
+            episodios = ObraView.getEpisodios(obra)
             isFavorito = ObraView.buscarFavorito(request.user, obra)
-            avaliacao_usuario = Avaliacao.objects.filter(obra=obra, usuario=request.user).first()
-            nota_usuario = avaliacao_usuario.estrelas if avaliacao_usuario else 0
-            media_avaliacoes = Avaliacao.objects.filter(obra=obra).aggregate(Avg('estrelas'))['estrelas__avg']
-            media_avaliacoes = round(media_avaliacoes, 1) if media_avaliacoes else "0.0"
+            avaliacao_usuario = ObraView.getAvaliacao(request.user, obra)
+            media_avaliacoes = ObraView.getMediaAvaliacoes(obra)
 
+            if avaliacao_usuario:
+                nota_usuario = avaliacao_usuario.estrelas
+            else :
+                nota_usuario = 0
 
             context = {
                 'obra': obra,
                 'episodios': episodios,
                 'isFavorito': isFavorito,
-                'avaliacao_usuario': avaliacao_usuario.estrelas if avaliacao_usuario else None,
+                'avaliacao_usuario': avaliacao_usuario.estrelas,
                 'nota_usuario': nota_usuario,
                 'media_avaliacoes': media_avaliacoes,
             }
@@ -129,7 +134,17 @@ class ObraView(View):
                 )
 
         return redirect('obra_info', id)
-
+    
+    def getEpisodios(obra):
+        return Episodio.objects.filter(obra=obra).all()
+    
+    def getAvaliacao(user, obra):
+        return Avaliacao.objects.filter(obra=obra).filter(usuario=user).first()
+    
+    def getMediaAvaliacoes(obra):
+        media =  Avaliacao.objects.filter(obra=obra).aggregate(Avg('estrelas'))['estrelas__avg']
+        media = round(media, 1) if media else "0.0"
+        return media
 
     def favoritar(request, id):
         f = Favoritados()

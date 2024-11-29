@@ -1,5 +1,5 @@
 from django.contrib import admin
-from LibreflixApp.models import Obra, Filme, Serie, Episodio, Favoritados, ContinuarAssistindo
+from LibreflixApp.models import Obra, Filme, Serie, Episodio, Favoritados, ContinuarAssistindo, Avaliacao
 
 class ObraAdmin(admin.ModelAdmin):
     list_display = ('titulo','genero','dataLancamento', 'diretor', 'trailer', 'isPopular', 'isRecente', 'isDestaque')
@@ -47,4 +47,5 @@ admin.site.register(Serie, SerieAdmin)
 admin.site.register(Episodio, EpisodioAdmin)
 admin.site.register(Favoritados, CommonDisplay)
 admin.site.register(ContinuarAssistindo, CommonDisplay)
+admin.site.register(Avaliacao)
 

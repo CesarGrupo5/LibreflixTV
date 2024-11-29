@@ -3,11 +3,12 @@ from django.contrib.auth import logout as lg
 from django.views import View
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, get_backends
 from django.db.models import Avg
 
 from LibreflixApp.models import Obra, ContinuarAssistindo, Favoritados, Filme, Serie, Episodio, Avaliacao
 from LibreflixApp.forms import CustomUserCreationForm, CustomAuthenticationForm  
+
 class RegistrationView(View):
     def get(self, request):
         form = CustomUserCreationForm()
@@ -17,10 +18,12 @@ class RegistrationView(View):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            backend = get_backends()[0]
+            user.backend = f"{backend.__module__}.{backend.__class__.__name__}"
             login(request, user)
             return redirect('home')
         return render(request, 'registration.html', {'form': form})
-
+    
 class LoginView(View):
     def get(self, request):
         form = CustomAuthenticationForm()
@@ -75,9 +78,9 @@ class ObraView(View):
             avaliacao_usuario = ObraView.getAvaliacao(request.user, obra)
             media_avaliacoes = ObraView.getMediaAvaliacoes(obra)
 
-            if avaliacao_usuario:
+            if avaliacao_usuario is not None:
                 nota_usuario = avaliacao_usuario.estrelas
-            else :
+            else:
                 nota_usuario = 0
 
             context = {
@@ -96,7 +99,7 @@ class ObraView(View):
             avaliacao_usuario = ObraView.getAvaliacao(request.user, obra)
             media_avaliacoes = ObraView.getMediaAvaliacoes(obra)
 
-            if avaliacao_usuario:
+            if avaliacao_usuario is not None:
                 nota_usuario = avaliacao_usuario.estrelas
             else :
                 nota_usuario = 0
@@ -105,7 +108,7 @@ class ObraView(View):
                 'obra': obra,
                 'episodios': episodios,
                 'isFavorito': isFavorito,
-                'avaliacao_usuario': avaliacao_usuario.estrelas,
+                'avaliacao_usuario': avaliacao_usuario.estrelas if avaliacao_usuario else None,
                 'nota_usuario': nota_usuario,
                 'media_avaliacoes': media_avaliacoes,
             }
@@ -186,8 +189,9 @@ class PesquisaView(View):
     def get(self, request, titulo = None):
         if titulo is not None:
             obras = PesquisaView.filterObras(titulo)
-
-        context = {'obras': obras}
+            context = {'obras': obras}
+        else:
+            context = {'obras': None}
         return render(request, "pesquisa.html", context)
     
     def post(self, request):

@@ -184,11 +184,6 @@ class GeneroView(View):
 
         context = {'obras': obras, 'genero': genero}
         return render(request, 'genero.html', context)
-    
-class SairView(View):
-    def get(self, request):
-        lg(request)
-        return redirect('page')
 
 class PesquisaView(View):
     def get(self, request, titulo = None):
@@ -214,3 +209,8 @@ class PesquisaView(View):
             return None
         else:
             return obras
+
+class SairView(View):
+    def get(self, request):
+        lg(request)
+        return redirect('login')

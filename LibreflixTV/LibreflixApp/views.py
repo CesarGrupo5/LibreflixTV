@@ -31,11 +31,8 @@ class LoginView(View):
         if form.is_valid():
             email = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            try:
-                user = User.objects.get(email=email)
-            except User.DoesNotExist:
-                user = None
-            if user is not None and user.check_password(password):
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
                 login(request, user)
                 return redirect('home')
             else:
